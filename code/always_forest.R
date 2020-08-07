@@ -43,14 +43,14 @@ message(for_min_value)
 # Reclassify NDVI Raster --------------------------------------------------
 ndvi_reclass <- ndvi
 ndvi_reclass[ndvi_reclass < 0.83] <- NA
-writeRaster(ndvi_reclass, "~/Documents/jgeotec2020/raster/ndvi_reclass_gt830.tif", options = "COMPRESS=DEFLATE")
+raster::writeRaster(ndvi_reclass, "~/Documents/jgeotec2020/raster/ndvi_reclass_gt830.tif", options = "COMPRESS=DEFLATE")
 
 # Create and save an Binary Raster Version --------------------------------
 ndvi_reclass_bin <- ndvi_reclass
 ndvi_reclass_bin[ndvi_reclass_bin >= 0.83] <- 1
-writeRaster(ndvi_reclass_bin, "~/Documents/jgeotec2020/raster/ndvi_reclass_gt830_bin.tif", options = "COMPRESS=DEFLATE")
+raster::writeRaster(ndvi_reclass_bin, "~/Documents/jgeotec2020/raster/ndvi_reclass_gt830_bin.tif", options = "COMPRESS=DEFLATE")
 
 # Merge NDVI bin with Mapbiomas bin ---------------------------------------
 for_mapbiomas <- raster::raster("~/Documents/jgeotec2020/raster/for_bin_sj.tif")
 always_forest <- ndvi_reclass_bin * for_mapbiomas
-writeRaster(always_forest, "~/Documents/jgeotec2020/raster/always_forest_bin.tif", options = "COMPRESS=DEFLATE")
+raster::writeRaster(always_forest, "~/Documents/jgeotec2020/raster/always_forest_bin.tif", options = "COMPRESS=DEFLATE")
