@@ -24,12 +24,9 @@ ndvi_ndmi <- merge(out_tb_ndvi, out_tb_ndvi, key = "CID")
 nir_ndvi_ndmi <- merge(out_tb_nir, out_tb_ndmi, key = "CID")
 b_g_r_nir_sw1_sw2_ndvi_ndwi_ndmi_savi <- merge(b_g_r_nir_sw1_sw2, ndvi_ndwi_ndmi_savi, key = "CID") # raw_idx
 greenness_wetness <- merge(out_tb_greenness, out_tb_wetness, key = "CID")
-tc <- merge(greenness_wetness, out_tb_brightness, key = "CID")
+tc <- merge(greenness_wetness, out_tb_brightness, key = "CID")# tc
 tc_ndvi_ndwi_ndmi_savi <- merge(ndvi_ndwi_ndmi_savi, tc, key = "CID") # tc_idx
-b_g <- merge(out_tb_blue, out_tb_green, key = "CID")
-b_g <- merge(out_tb_blue, out_tb_green, key = "CID")
-
-
+all <- merge(b_g_r_nir_sw1_sw2_ndvi_ndwi_ndmi_savi, tc, key = "CID") # all
 
 write.csv(b_g, "~/Documents/jgeotec2020/tables/output_samples_b_g.csv")
 write.csv(b_g_r, "~/Documents/jgeotec2020/tables/output_samples_b_g_r.csv")
@@ -41,6 +38,5 @@ write.csv(nir_ndvi, "~/Documents/jgeotec2020/tables/output_samples_nir_ndvi.csv"
 write.csv(nir_ndvi_ndmi, "~/Documents/jgeotec2020/tables/output_samples_nir_ndvi_ndmi.csv")
 write.csv(tc, "~/Documents/jgeotec2020/tables/output_samples_tc.csv")
 write.csv(tc_ndvi_ndwi_ndmi_savi, "~/Documents/jgeotec2020/tables/output_samples_tc_ndvi_ndwi_ndmi_savi.csv")
-write.csv(b_g, "~/Documents/jgeotec2020/tables/output_samples_b_g.csv")
-write.csv(b_g, "~/Documents/jgeotec2020/tables/output_samples_b_g.csv")
-write.csv(b_g, "~/Documents/jgeotec2020/tables/output_samples_b_g.csv")
+write.csv(b_g_r_nir_sw1_sw2_ndvi_ndwi_ndmi_savi, "~/Documents/jgeotec2020/tables/output_samples_b_g_r_nir_sw1_sw2_ndvi_ndwi_ndmi_savi.csv")
+write.csv(all, "~/Documents/jgeotec2020/tables/output_samples_all.csv")

@@ -8,19 +8,19 @@ library(raster)
 # amostras_df <- as.data.frame(amostras)
 
 # Or read as .csv ---------------------------------------------------------
-amostras_df <- read.csv("~/Documents/jgeotec2020/tables/output_samples_b_g_r_nir.csv", stringsAsFactors = FALSE)
+amostras_df <- read.csv("~/Documents/jgeotec2020/tables/output_samples_ndvi_ndmi.csv", stringsAsFactors = FALSE)
 
 amostras_df$CID <- NULL
 amostras_df$system.index <- NULL
 amostras_df$.geo <- NULL
 
 # MLR ---------------------------------------------------------------------
-rTask <- makeClassifTask(data = amostras_df, target = "class") # cria task
-rf = makeLearner("classif.randomForest", predict.type = "prob") # cria learner
-rfModel <- train(rf, rTask) # treina modelo
-kFold <- makeResampleDesc("RepCV", folds = 10, reps = 100)
+rTask <- mlr::makeClassifTask(data = amostras_df, target = "class") # cria task
+rf = mlr::makeLearner("classif.randomForest", predict.type = "prob") # cria learner
+rfModel <- mlr::train(rf, rTask) # treina modelo
+kFold <- mlr::makeResampleDesc("RepCV", folds = 10, reps = 100)
 rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold) # (optional)
-calculateConfusionMatrix(rfFoldCV$pred) # (optional)
+mlr::calculateConfusionMatrix(rfFoldCV$pred) # (optional)
 
 
 
