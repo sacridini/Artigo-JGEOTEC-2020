@@ -8,22 +8,25 @@ library(raster)
 # amostras_df <- as.data.frame(amostras)
 
 # Or read as .csv ---------------------------------------------------------
-amostras_df <- read.csv("~/Documents/jgeotec2020/tables/output_samples_tc_ndvi_ndwi_ndmi_savi.csv", stringsAsFactors = FALSE)
+amostras_df <- read.csv("~/Documents/jgeotec2020/tables/output_samples_brightness.csv", stringsAsFactors = FALSE)
 
 amostras_df$CID <- NULL
 amostras_df$system.index <- NULL
 amostras_df$.geo <- NULL
+amostras_df$X.1 <- NULL
+amostras_df$X <- NULL
 
 # MLR ---------------------------------------------------------------------
 rTask <- mlr::makeClassifTask(data = amostras_df, target = "class") # cria task
 rf = mlr::makeLearner("classif.randomForest", predict.type = "prob") # cria learner
 rfModel <- mlr::train(rf, rTask) # treina modelo
 kFold <- mlr::makeResampleDesc("RepCV", folds = 10, reps = 50)
-rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold) # (optional)
+rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold, measures = list(mmce, kappa)) # (optional)
+
 mlr::calculateConfusionMatrix(rfFoldCV$pred) # (optional)
 fv <- generateFilterValuesData(rTask, method = "FSelectorRcpp_information.gain")
 plotFilterValues(fv, filter = "FSelectorRcpp_information.gain")
-
+getFeatureImportance(rfModel)
 
 # Raster Classification ---------------------------------------------------
 # r_df <- as.data.frame(as.matrix(r)) # transforma o raster em data.frame (necessário)
