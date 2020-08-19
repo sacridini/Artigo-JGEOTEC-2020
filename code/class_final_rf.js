@@ -5,7 +5,7 @@ var roi = ee.FeatureCollection("users/elacerda/bhrsj"),
     img_ts = ee.Image("users/elacerda/bhrsj_ts");
 
 var geet = require('users/elacerda/geet:geet'); 
-print(img_ts)
+
 var set_prop = function(feature) {
   return feature.set('class', 0);
 }
