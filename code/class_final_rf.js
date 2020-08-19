@@ -6,20 +6,16 @@ var roi = ee.FeatureCollection("users/elacerda/bhrsj"),
 
 var geet = require('users/elacerda/geet:geet'); 
 
-var set_prop = function(feature) {
-  return feature.set('class', 0);
+for (var i = 0; i < 3; i++) {
+  switch(i) {
+    case 0:
+      af_samples = af_samples.map(function(feature) { return feature.set('class', i); });
+    case 1:
+      ltr_samples = ltr_samples.map(function(feature) { return feature.set('class', i); });
+    case 2:
+      other_samples = other_samples.map(function(feature) { return feature.set('class', i); });
+  }
 }
-var af_samples = af_samples.map(set_prop)
-
-var set_prop = function(feature) {
-  return feature.set('class', 1);
-}
-var ltr_samples = ltr_samples.map(set_prop)
-
-var set_prop = function(feature) {
-  return feature.set('class', 2);
-}
-var other_samples = other_samples.map(set_prop)
 
 var samplesfc = af_samples.merge(ltr_samples).merge(other_samples);
 
