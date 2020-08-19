@@ -46,5 +46,17 @@ for (var i = 0; i < 32; i++) {
 
 
 var imgClass = geet.rf(ee.Image(img_ts), bands, samplesfc, 'class', 100, 30, 0.7);
-print(imgClass)
-Map.addLayer(imgClass)
+print(imgClass);
+Map.addLayer(imgClass);
+  
+Export.image.toDrive({
+  // mascara alguns pixels com valor NA que eram exportados como 0, dificultando a limpeza posterior
+  image: imgClass.unmask(4).clip(roi), 
+  description: "imgClass", 
+  folder: 'ee', 
+  fileNamePrefix: "imgClass", 
+  region: roi,
+  scale: 30, 
+  crs: 'EPSG:4326', 
+  maxPixels: 1e13
+});
