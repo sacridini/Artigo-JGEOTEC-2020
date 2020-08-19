@@ -21,12 +21,13 @@ rTask <- mlr::makeClassifTask(data = amostras_df, target = "class") # cria task
 rf = mlr::makeLearner("classif.randomForest", predict.type = "prob") # cria learner
 rfModel <- mlr::train(rf, rTask) # treina modelo
 kFold <- mlr::makeResampleDesc("RepCV", folds = 10, reps = 50)
-rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold, measures = list(mmce, kappa)) # (optional)
+rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold, measures = list(mmce, kappa)) 
+
 
 mlr::calculateConfusionMatrix(rfFoldCV$pred) # (optional)
-fv <- generateFilterValuesData(rTask, method = "FSelectorRcpp_information.gain")
-plotFilterValues(fv, filter = "FSelectorRcpp_information.gain")
-getFeatureImportance(rfModel)
+fv <- generateFilterValuesData(rTask, method = "FSelectorRcpp_information.gain") # (optional)
+plotFilterValues(fv, filter = "FSelectorRcpp_information.gain") # (optional)
+getFeatureImportance(rfModel) # (optional)
 
 # Raster Classification ---------------------------------------------------
 # r_df <- as.data.frame(as.matrix(r)) # transforma o raster em data.frame (necessário)
