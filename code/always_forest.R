@@ -32,8 +32,9 @@ pnts_df <- dplyr::select(pnts_df, class, values)
 # ANOVA -------------------------------------------------------------------
 # O teste ANOVA neste caso serve para ver se as amostras de floresta e pasto foram bem coletadas
 # A resposta que esperamos é que o P valor aqui seja o menor possível, demonstrando diferença entre as duas classes
-test <- aov(values ~ class, data = pnts_df)
-summary(test)
+# test <- aov(values ~ class, data = pnts_df)
+test <- t.test(pnts_df$values~pnts_df$class)
+# summary(test)
 
 # Threshold Calculation ---------------------------------------------------
 for_min_value <- min(for_pnts_df$values)
