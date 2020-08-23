@@ -25,9 +25,9 @@ rfFoldCV <- mlr::resample(learner = rf, task = rTask, resampling = kFold, measur
 
 
 mlr::calculateConfusionMatrix(rfFoldCV$pred) # (optional)
-fv <- generateFilterValuesData(rTask, method = "FSelectorRcpp_information.gain") # (optional)
-plotFilterValues(fv, filter = "FSelectorRcpp_information.gain") # (optional)
-getFeatureImportance(rfModel) # (optional)
+fv <- mlr::generateFilterValuesData(rTask, method = "FSelectorRcpp_information.gain") # (optional)
+mlr::plotFilterValues(fv, filter = "FSelectorRcpp_information.gain") # (optional)
+mlr::getFeatureImportance(rfModel) # (optional)
 
 # Raster Classification ---------------------------------------------------
 # r_df <- as.data.frame(as.matrix(r)) # transforma o raster em data.frame (necessário)
